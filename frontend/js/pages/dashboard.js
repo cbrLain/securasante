@@ -1,21 +1,52 @@
 /* js/pages/dashboard.js */
+function calcPct(val, max) {
+  return Math.min(Math.round((val / max) * 100), 100);
+}
+
 async function loadDashboard(role) {
   try {
     const d = await Api.getStats();
     const grid = document.getElementById('stats-grid');
+    let cards = '';
 
     if (role === 'assureur') {
-      grid.innerHTML = `
-        <div class="stat-card"><div class="stat-ico"><i class="fas fa-users"></i></div><div><div class="stat-val">${d.totalAssures}</div><div class="stat-lbl">Assurés actifs</div></div></div>
-        <div class="stat-card"><div class="stat-ico"><i class="fas fa-user-md"></i></div><div><div class="stat-val">${d.totalMedecins}</div><div class="stat-lbl">Médecins enregistrés</div></div></div>
-        <div class="stat-card"><div class="stat-ico"><i class="fas fa-file-invoice"></i></div><div><div class="stat-val">${d.totalFeuilles}</div><div class="stat-lbl">Feuilles de maladie</div></div></div>
-        <div class="stat-card"><div class="stat-ico"><i class="fas fa-credit-card"></i></div><div><div class="stat-val">${fmtMoney(d.totalRemb)}</div><div class="stat-lbl">Total remboursé</div></div></div>
-      `;
+      const stats = [
+        { val: d.totalAssures,  lbl: 'Assurés actifs',         pct: calcPct(d.totalAssures, 10), color: '#007bff' },
+        { val: d.totalMedecins, lbl: 'Médecins enregistrés',   pct: calcPct(d.totalMedecins, 10), color: '#28a745' },
+        { val: d.totalFeuilles, lbl: 'Feuilles de maladie',    pct: calcPct(d.totalFeuilles, 20), color: '#17a2b8' },
+        { val: d.totalRemb,     lbl: 'Total remboursé',        pct: calcPct(d.totalRemb, 20000), color: '#ffc107', fmt: v => fmtMoney(v) },
+      ];
+      stats.forEach((s, i) => {
+        cards += `
+          <div class="stat-card">
+            <canvas class="stat-chart" id="stat-chart-${i}" width="72" height="72"></canvas>
+            <div class="stat-info">
+              <div class="stat-val">${s.fmt ? s.fmt(s.val) : s.val}</div>
+              <div class="stat-lbl">${s.lbl}</div>
+              <div class="stat-bar"><div class="stat-bar-fill" style="width:${s.pct}%;background:${s.color}"></div></div>
+            </div>
+          </div>`;
+      });
+      grid.innerHTML = cards;
+      stats.forEach((s, i) => drawMiniDonut('stat-chart-' + i, s.pct, s.color));
     } else {
-      grid.innerHTML = `
-        <div class="stat-card"><div class="stat-ico"><i class="fas fa-file-invoice"></i></div><div><div class="stat-val">${d.totalFeuilles}</div><div class="stat-lbl">Mes feuilles</div></div></div>
-        <div class="stat-card"><div class="stat-ico"><i class="fas fa-prescription-bottle-alt"></i></div><div><div class="stat-val">${d.totalPrescriptions}</div><div class="stat-lbl">Prescriptions émises</div></div></div>
-      `;
+      const stats = [
+        { val: d.totalFeuilles,     lbl: 'Mes feuilles',         pct: calcPct(d.totalFeuilles, 20),   color: '#17a2b8' },
+        { val: d.totalPrescriptions, lbl: 'Prescriptions émises', pct: calcPct(d.totalPrescriptions, 20), color: '#6610f2' },
+      ];
+      stats.forEach((s, i) => {
+        cards += `
+          <div class="stat-card">
+            <canvas class="stat-chart" id="stat-chart-${i}" width="72" height="72"></canvas>
+            <div class="stat-info">
+              <div class="stat-val">${s.val}</div>
+              <div class="stat-lbl">${s.lbl}</div>
+              <div class="stat-bar"><div class="stat-bar-fill" style="width:${s.pct}%;background:${s.color}"></div></div>
+            </div>
+          </div>`;
+      });
+      grid.innerHTML = cards;
+      stats.forEach((s, i) => drawMiniDonut('stat-chart-' + i, s.pct, s.color));
     }
 
     // Activité récente

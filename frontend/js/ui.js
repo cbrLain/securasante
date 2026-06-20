@@ -86,6 +86,27 @@ function setLoader(tbodyId, cols) {
   if (tb) tb.innerHTML = `<tr><td colspan="${cols}" class="loader"><i class="fas fa-spinner" style="animation: spin 1s linear infinite"></i> Chargement…</td></tr>`;
 }
 
+// ── Mini donut pour les stats ────────────────────────────────
+function drawMiniDonut(canvasId, pct, color) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  const cx = w / 2, cy = h / 2, r = Math.min(cx, cy) - 6;
+  ctx.clearRect(0, 0, w, h);
+  // Cercle arrière-plan
+  ctx.beginPath(); ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+  ctx.strokeStyle = '#e9ecef'; ctx.lineWidth = 8; ctx.stroke();
+  // Arc de progression
+  const angle = Math.min(pct, 100) / 100 * 2 * Math.PI;
+  ctx.beginPath(); ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + angle);
+  ctx.strokeStyle = color; ctx.lineWidth = 8; ctx.lineCap = 'round'; ctx.stroke();
+  // Texte au centre
+  ctx.fillStyle = color; ctx.font = 'bold 18px -apple-system, "Segoe UI", sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(Math.round(pct) + '%', cx, cy);
+}
+
 // ── Mini chart (canvas donut) ─────────────────────────────────
 function drawDonut(canvasId, data) {
   const canvas = document.getElementById(canvasId);
