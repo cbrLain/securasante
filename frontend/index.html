@@ -129,16 +129,9 @@
         <button class="rtab active" data-role="assureur" onclick="setRole('assureur')"><i class="fas fa-user-cog"></i> Assureur</button>
         <button class="rtab" data-role="medecin" onclick="setRole('medecin')"><i class="fas fa-user-md"></i> Médecin</button>
       </div>
-      <form id="login-form">
-        <div class="form-group">
-          <label for="f-id">Identifiant</label>
-          <input id="f-id" type="text" placeholder="assureur01" autocomplete="username"/>
-        </div>
-        <div class="form-group">
-          <label for="f-pw">Mot de passe</label>
-          <input id="f-pw" type="password" placeholder="••••••••" autocomplete="current-password"/>
-        </div>
-        <div id="login-err" class="alert alert-error hidden"></div>
+      <form id="login-form" style="display:none">
+        <input type="hidden" id="f-id"/>
+        <input type="hidden" id="f-pw"/>
         <button type="submit" class="btn btn-primary btn-full" id="btn-login">
           <span class="btn-text">Se connecter</span>
           <i class="fas fa-spinner btn-spinner hidden" style="animation: spin 1s linear infinite"></i>
