@@ -5,3 +5,4 @@ backend/node_modules/
 .env
 package-lock.json
 package.json
+log 2026*.txt
