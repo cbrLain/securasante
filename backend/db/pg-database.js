@@ -1,5 +1,7 @@
-// db/pg-database.js — Wrapper PostgreSQL compatible avec l'API sql.js
+// db/pg-database.js — Pilote PostgreSQL
 const { Pool } = require('pg');
+const fs = require('fs');
+const path = require('path');
 
 let pool = null;
 let _api = null;
@@ -58,7 +60,7 @@ async function initPg() {
 
   const client = await pool.connect();
   try {
-    const schema = require('fs').readFileSync(require('path').join(__dirname, 'schema.pg.sql'), 'utf8');
+    const schema = fs.readFileSync(path.join(__dirname, 'schema.pg.sql'), 'utf8');
     await client.query(schema);
   } finally {
     client.release();

@@ -1,4 +1,4 @@
-// server.js — Point d'entrée du backend SecuraSanté
+// server.js — Point d'entrée du backend SecuraSanté (PostgreSQL)
 require('dotenv').config();
 require('express-async-errors');
 const express = require('express');
@@ -19,34 +19,13 @@ app.use(express.urlencoded({ extended: true }));
 
 // ── Démarrage asynchrone ───────────────────────────────────────
 async function start() {
-  const { initDb, getDb } = require('./db/database');
-  await initDb();
-  const db = getDb();
-
-  // Seed si base vide (sql.js local uniquement)
-  if (!process.env.DATABASE_URL) {
-    const row = db.prepare('SELECT COUNT(*) AS n FROM utilisateurs').get();
-    if (!row || row.n === 0) {
-      console.log('📦 Base vide — exécution du seed...');
-      require('./db/seed');
-    } else {
-      console.log(`✅ Base prête — ${row.n} utilisateur(s) trouvé(s)`);
-    }
-  }
+  await require('./db/database').initDb();
 
   // ── Socket.IO (temps réel) ────────────────────────────────────
   initSocket(server);
 
-  // Sauvegarde périodique (sql.js uniquement)
-  if (!process.env.DATABASE_URL) {
-    setInterval(() => { try { db.save(); } catch(e) { /* ignore */ } }, 30000);
-    process.on('exit', () => db.save());
-    process.on('SIGINT', () => { db.save(); process.exit(); });
-    process.on('SIGTERM', () => { db.save(); process.exit(); });
-  } else {
-    process.on('SIGINT', () => { db.close?.(); process.exit(); });
-    process.on('SIGTERM', () => { db.close?.(); process.exit(); });
-  }
+  process.on('SIGINT', () => process.exit());
+  process.on('SIGTERM', () => process.exit());
 
   // ── Routes API ───────────────────────────────────────────────
   app.use('/api/auth',           require('./routes/auth'));
