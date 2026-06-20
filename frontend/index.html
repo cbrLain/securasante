@@ -20,76 +20,93 @@
     <button class="btn btn-outline" style="border-color:#fff;color:#fff" onclick="showLogin()">Espace Connecté <i class="fas fa-arrow-right"></i></button>
   </div>
 
-  <div class="landing-hero">
-    <div class="hero-text">
-      <div class="hero-badge">Organisme de Sécurité Sociale</div>
-      <h1>NKAPSANTÉ : votre santé, notre engagement.</h1>
-      <p>Rejoignez le réseau de sécurité sociale qui protege vous et votre famille. Accedez à des soins de qualite, beneficiez de remboursements rapides et suivez vos dossiers en toute transparence.</p>
-      <div class="hero-actions">
-        <button class="btn btn-lg" style="background:#fff;color:#667eea;font-weight:700;border:none" onclick="showLogin()">Espace Connecté <i class="fas fa-arrow-right"></i></button>
+  <div class="l-tabs">
+    <button class="ltab active" data-ltab="about" onclick="switchLandingTab('about')">À propos</button>
+    <button class="ltab" data-ltab="roles" onclick="switchLandingTab('roles')">Assurés & Médecins</button>
+  </div>
+
+  <!-- Tab: À propos -->
+  <div id="ltab-about" class="ltab-content active">
+    <div class="landing-hero">
+      <div class="hero-text">
+        <div class="hero-badge">Organisme de Sécurité Sociale</div>
+        <h1>NKAPSANTÉ : votre santé, notre engagement.</h1>
+        <p>Rejoignez le réseau de sécurité sociale qui protege vous et votre famille. Accedez à des soins de qualite, beneficiez de remboursements rapides et suivez vos dossiers en toute transparence.</p>
+        <div class="hero-actions">
+          <button class="btn btn-lg" style="background:#fff;color:#667eea;font-weight:700;border:none" onclick="showLogin()">Espace Connecté <i class="fas fa-arrow-right"></i></button>
+        </div>
       </div>
+    </div>
+
+    <div class="l-section l-features">
+      <h2 class="l-section-title">Pourquoi choisir NKAPSANTÉ ?</h2>
+      <div class="feat-grid">
+        <div class="feat">
+          <div class="feat-icon"><i class="fas fa-bolt"></i></div>
+          <h3>Traitement rapide</h3>
+          <p>Les feuilles de maladie sont traitées en quelques clics. Les remboursements sont effectués sans délai.</p>
+        </div>
+        <div class="feat">
+          <div class="feat-icon"><i class="fas fa-file-invoice"></i></div>
+          <h3>Suivi transparent</h3>
+          <p>Assurés et médecins peuvent suivre l'état des dossiers à chaque étape : de la création au remboursement.</p>
+        </div>
+        <div class="feat">
+          <div class="feat-icon"><i class="fas fa-prescription-bottle-alt"></i></div>
+          <h3>Prescriptions numeriques</h3>
+          <p>Prescrivez des médicaments ou demandez des consultations spécialisées directement depuis la plateforme.</p>
+        </div>
+        <div class="feat">
+          <div class="feat-icon"><i class="fas fa-shield-alt"></i></div>
+          <h3>Securite des donnees</h3>
+          <p>Les donnees medicales et personnelles sont stockees dans un environnement hautement securise.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="l-section l-cta">
+      <h2>Prêt à rejoindre NKAPSANTÉ ?</h2>
+      <p>Accedez à votre espace connecté pour commencer à utiliser la plateforme.</p>
+      <button class="btn btn-lg" style="background:#fff;color:#667eea;font-weight:700;border:none" onclick="showLogin()">Accéder à l'espace connecté <i class="fas fa-arrow-right"></i></button>
     </div>
   </div>
 
-  <div class="l-section l-role">
-    <h2 class="l-section-title">Une plateforme pour tous les acteurs</h2>
-    <p class="l-section-desc">NKAPSANTÉ est conçue pour les agents de sécurité sociale et les professionnels de santé. Chacun dispose d'outils adaptés à ses besoins.</p>
-    <div class="role-cards">
-      <div class="role-card">
-        <div class="role-icon"><i class="fas fa-user-cog"></i></div>
-        <h3>Assureurs</h3>
-        <p>Les agents de sécurité sociale gèrent les inscriptions, traitent les feuilles de maladie, valident les remboursements et supervisent l'ensemble du parcours de soins des assurés.</p>
-        <ul>
-          <li><i class="fas fa-check-circle"></i> Inscrire et gérer les assurés</li>
-          <li><i class="fas fa-check-circle"></i> Traiter les feuilles de maladie</li>
-          <li><i class="fas fa-check-circle"></i> Effectuer les remboursements</li>
-          <li><i class="fas fa-check-circle"></i> Consulter les statistiques</li>
-        </ul>
-      </div>
-      <div class="role-card">
-        <div class="role-icon"><i class="fas fa-user-md"></i></div>
-        <h3>Médecins</h3>
-        <p>Les professionnels de santé créent et transmettent les feuilles de maladie, prescrivent des médicaments et orientent les patients vers des spécialistes.</p>
-        <ul>
-          <li><i class="fas fa-check-circle"></i> Créer des feuilles de maladie</li>
-          <li><i class="fas fa-check-circle"></i> Prescrire des médicaments</li>
-          <li><i class="fas fa-check-circle"></i> Orienter vers un spécialiste</li>
-          <li><i class="fas fa-check-circle"></i> Suivre l'état des dossiers</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="l-section l-features">
-    <h2 class="l-section-title">Pourquoi choisir NKAPSANTÉ ?</h2>
-    <div class="feat-grid">
-      <div class="feat">
-        <div class="feat-icon"><i class="fas fa-bolt"></i></div>
-        <h3>Traitement rapide</h3>
-        <p>Les feuilles de maladie sont traitées en quelques clics. Les remboursements sont effectués sans délai.</p>
-      </div>
-      <div class="feat">
-        <div class="feat-icon"><i class="fas fa-file-invoice"></i></div>
-        <h3>Suivi transparent</h3>
-        <p>Assurés et médecins peuvent suivre l'état des dossiers à chaque étape : de la création au remboursement.</p>
-      </div>
-      <div class="feat">
-        <div class="feat-icon"><i class="fas fa-prescription-bottle-alt"></i></div>
-        <h3>Prescriptions numeriques</h3>
-        <p>Prescrivez des médicaments ou demandez des consultations spécialisées directement depuis la plateforme.</p>
-      </div>
-      <div class="feat">
-        <div class="feat-icon"><i class="fas fa-shield-alt"></i></div>
-        <h3>Securite des donnees</h3>
-        <p>Les donnees medicales et personnelles sont stockees dans un environnement hautement securise.</p>
+  <!-- Tab: Assurés & Médecins -->
+  <div id="ltab-roles" class="ltab-content">
+    <div class="l-section">
+      <h2 class="l-section-title">Une plateforme pour tous les acteurs</h2>
+      <p class="l-section-desc">NKAPSANTÉ est conçue pour les agents de sécurité sociale et les professionnels de santé. Chacun dispose d'outils adaptés à ses besoins.</p>
+      <div class="role-cards">
+        <div class="role-card">
+          <div class="role-icon"><i class="fas fa-user-cog"></i></div>
+          <h3>Assureurs</h3>
+          <p>Les agents de sécurité sociale gèrent les inscriptions, traitent les feuilles de maladie, valident les remboursements et supervisent l'ensemble du parcours de soins des assurés.</p>
+          <ul>
+            <li><i class="fas fa-check-circle"></i> Inscrire et gérer les assurés</li>
+            <li><i class="fas fa-check-circle"></i> Traiter les feuilles de maladie</li>
+            <li><i class="fas fa-check-circle"></i> Effectuer les remboursements</li>
+            <li><i class="fas fa-check-circle"></i> Consulter les statistiques</li>
+          </ul>
+        </div>
+        <div class="role-card">
+          <div class="role-icon"><i class="fas fa-user-md"></i></div>
+          <h3>Médecins</h3>
+          <p>Les professionnels de santé créent et transmettent les feuilles de maladie, prescrivent des médicaments et orientent les patients vers des spécialistes.</p>
+          <ul>
+            <li><i class="fas fa-check-circle"></i> Créer des feuilles de maladie</li>
+            <li><i class="fas fa-check-circle"></i> Prescrire des médicaments</li>
+            <li><i class="fas fa-check-circle"></i> Orienter vers un spécialiste</li>
+            <li><i class="fas fa-check-circle"></i> Suivre l'état des dossiers</li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="l-section l-cta">
-    <h2>Prêt à rejoindre NKAPSANTÉ ?</h2>
-    <p>Accedez à votre espace connecté pour commencer à utiliser la plateforme.</p>
-    <button class="btn btn-lg" style="background:#fff;color:#667eea;font-weight:700;border:none" onclick="showLogin()">Accéder à l'espace connecté <i class="fas fa-arrow-right"></i></button>
+    <div class="l-section l-cta">
+      <h2>Prêt à rejoindre NKAPSANTÉ ?</h2>
+      <p>Accedez à votre espace connecté pour commencer à utiliser la plateforme.</p>
+      <button class="btn btn-lg" style="background:#fff;color:#667eea;font-weight:700;border:none" onclick="showLogin()">Accéder à l'espace connecté <i class="fas fa-arrow-right"></i></button>
+    </div>
   </div>
 
   <div class="l-footer">

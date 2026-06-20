@@ -51,6 +51,13 @@ function demo(id, pw) {
   document.getElementById('f-pw').value = pw;
 }
 
+function switchLandingTab(tab) {
+  document.querySelectorAll('.ltab').forEach(t => t.classList.remove('active'));
+  document.querySelector(`.ltab[data-ltab="${tab}"]`).classList.add('active');
+  document.querySelectorAll('.ltab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('ltab-' + tab).classList.add('active');
+}
+
 function setRole(role) {
   document.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
   document.querySelector(`.rtab[data-role="${role}"]`).classList.add('active');
