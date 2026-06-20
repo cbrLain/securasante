@@ -3,7 +3,7 @@ const Database = require('better-sqlite3');
 const fs = require('fs');
 const path = require('path');
 
-const DB_PATH = path.join(__dirname, 'securasante.db');
+const DB_PATH = process.env.DB_PATH || path.join(__dirname, 'securasante.db');
 const SCHEMA  = path.join(__dirname, 'schema.sql');
 
 let db;
