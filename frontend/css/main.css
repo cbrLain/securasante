@@ -19,7 +19,7 @@
   --shadow:    0 2px 4px rgba(0,0,0,.05);
   --shadow-lg: 0 4px 12px rgba(0,0,0,.1);
 
-  --sidebar-w: 230px;
+  --sidebar-w: 200px;
   --topbar-h:  56px;
   --radius:    4px;
 }
@@ -249,7 +249,7 @@ ul{list-style:none}
 .tbl td{
   padding:10px 14px;font-size:.85rem;
   border-bottom:1px solid var(--border);vertical-align:middle;background:#fff;
-  word-break:break-word;max-width:300px
+  white-space:nowrap
 }
 .tbl tbody tr:nth-child(even) td{background:#f8f9fa}
 .tbl tbody tr:hover td{background:#e9ecef}
