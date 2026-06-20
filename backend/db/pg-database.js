@@ -34,11 +34,8 @@ function wrapSql(sql) {
   let idx = 0;
   let adapted = sql.replace(/\?/g, () => `$${++idx}`);
 
-  // INSERT OR IGNORE → INSERT ... ON CONFLICT DO NOTHING
-  adapted = adapted.replace(/INSERT OR IGNORE\s+INTO\s+(\w+)/gi, (match, table) => {
-    // Determine conflict column from context
-    return `INSERT INTO ${table} ON CONFLICT DO NOTHING`;
-  });
+  // INSERT OR IGNORE → INSERT ... ON CONFLICT DO NOTHING (PostgreSQL)
+  adapted = adapted.replace(/INSERT\s+OR\s+IGNORE\s+(INTO\s+\w+(?:\s*\([^)]*\))?\s*VALUES\s*\([^)]*\))/gi, 'INSERT $1 ON CONFLICT DO NOTHING');
 
   // last_insert_rowid() → LASTVAL()
   adapted = adapted.replace(/last_insert_rowid\(\)/gi, 'LASTVAL()');
