@@ -200,10 +200,11 @@ ul{list-style:none}
 .p0{padding:0!important}
 
 /* ── STATS ────────────────────────────────────────────── */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
 .stat-card{
   background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius);
-  padding:20px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow)
+  padding:20px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow);
+  width:100%
 }
 .stat-ico{
   width:48px;height:48px;border-radius:var(--radius);flex-shrink:0;
@@ -341,11 +342,17 @@ ul{list-style:none}
   .page-title{font-size:1rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .stats-grid{grid-template-columns:1fr 1fr}
   .stat-val{font-size:1.2rem}
+  .stat-ico{width:40px;height:40px;font-size:18px}
+  .stat-card{padding:14px;gap:10px}
+}
 }
 @media(max-width:480px){
   .stats-grid{grid-template-columns:1fr}
   .login-card{padding:24px 20px}
   .tbl th,.tbl td{padding:8px 10px;font-size:.78rem}
+  .stat-card{padding:14px}
+  .stat-ico{width:36px;height:36px;font-size:16px}
+  .stat-val{font-size:1.1rem}
 }
 
 /* ── ANIMATIONS ───────────────────────────────────────── */

@@ -86,27 +86,6 @@ function setLoader(tbodyId, cols) {
   if (tb) tb.innerHTML = `<tr><td colspan="${cols}" class="loader"><i class="fas fa-spinner" style="animation: spin 1s linear infinite"></i> Chargement…</td></tr>`;
 }
 
-// ── Mini donut pour les stats ────────────────────────────────
-function drawMiniDonut(canvasId, pct, color) {
-  const canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const w = canvas.width, h = canvas.height;
-  const cx = w / 2, cy = h / 2, r = Math.min(cx, cy) - 6;
-  ctx.clearRect(0, 0, w, h);
-  // Cercle arrière-plan
-  ctx.beginPath(); ctx.arc(cx, cy, r, 0, 2 * Math.PI);
-  ctx.strokeStyle = '#e9ecef'; ctx.lineWidth = 8; ctx.stroke();
-  // Arc de progression
-  const angle = Math.min(pct, 100) / 100 * 2 * Math.PI;
-  ctx.beginPath(); ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + angle);
-  ctx.strokeStyle = color; ctx.lineWidth = 8; ctx.lineCap = 'round'; ctx.stroke();
-  // Texte au centre
-  ctx.fillStyle = color; ctx.font = 'bold 18px -apple-system, "Segoe UI", sans-serif';
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.fillText(Math.round(pct) + '%', cx, cy);
-}
-
 // ── Mini chart (canvas donut) ─────────────────────────────────
 function drawDonut(canvasId, data) {
   const canvas = document.getElementById(canvasId);
@@ -145,17 +124,18 @@ function drawDonut(canvasId, data) {
   ctx.fillStyle = '#6c757d';
   ctx.fillText('dossiers', cx, cy + 12);
 
-  // Légende
-  const legendY = cy + r + 14;
-  let lx = 10;
+  // Légende (en bas, centrée, multi-ligne si besoin)
+  let lx = 10, ly = cy + r + 16, lineH = 16;
   data.forEach(d => {
-    if (lx > canvas.width - 60) return;
+    const txt = `${d.statut.split(' ')[0]} (${d.n})`;
+    const tw = ctx.measureText(txt).width + 30;
+    if (lx + tw > canvas.width - 10) { lx = 10; ly += lineH; }
     ctx.fillStyle = colors[d.statut] || '#adb5bd';
-    ctx.fillRect(lx, legendY, 10, 10);
+    ctx.fillRect(lx, ly, 10, 10);
     ctx.fillStyle = '#495057';
     ctx.font = '9px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText(`${d.statut.split(' ')[0]} (${d.n})`, lx + 14, legendY + 8);
-    lx += ctx.measureText(`${d.statut.split(' ')[0]} (${d.n})`).width + 30;
+    ctx.fillText(txt, lx + 14, ly + 8);
+    lx += tw;
   });
 }
