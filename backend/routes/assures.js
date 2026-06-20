@@ -65,7 +65,7 @@ router.post('/', authenticate, requireRole('assureur'), (req, res) => {
     'INSERT INTO assures (personne_id,numero_ss,medecin_traitant_id) VALUES (?,?,?)'
   ).run(pInfo.lastInsertRowid, numero_ss, medecin_traitant_id || null);
 
-  res.status(201).json({ id: aInfo.lastInsertRowid, message: 'Assuré inscrit avec succès.' });
+  res.status(201).json({ id: aInfo.lastInsertRowid, numero_ss, message: 'Assuré inscrit avec succès.' });
 });
 
 // PUT /api/assures/:id — Mettre à jour

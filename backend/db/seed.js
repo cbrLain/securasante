@@ -59,12 +59,12 @@ const med1Id = db.prepare("SELECT id FROM medecins WHERE identifiant='MED-001'")
 const med2Id = db.prepare("SELECT id FROM medecins WHERE identifiant='MED-002'").get()?.id;
 const med6Id = db.prepare("SELECT id FROM medecins WHERE identifiant='MED-006'").get()?.id;
 
-seedAssure('ASSAM ESSI', 'Camille',   '1990-04-12', '677000001', 'c.assam@gmail.com',   '1-900412-001-23', med1Id, '2024-01-10');
-seedAssure('BAKOTCHA',   'Loïc',      '1985-08-25', '677000002', 'l.bakotcha@gmail.com','1-850825-002-21', med1Id, '2024-02-15');
-seedAssure('DJOKAM',     'Franck',    '1995-12-03', '677000003', 'f.djokam@gmail.com',  '1-951203-003-23', med2Id, '2024-03-20');
-seedAssure('MEGOUEO',    'Davy',      '1988-06-17', '677000004', 'd.megoueo@gmail.com', '1-880617-004-23', med2Id, '2024-04-05');
-seedAssure('NSOBÉ',      'Chamberlain','1992-02-28','677000005', 'c.nsobe@gmail.com',   '1-920228-005-23', med6Id, '2024-05-12');
-seedAssure('TACHAGO',    'Eugénie',   '1993-09-09', '677000006', 'e.tachago@gmail.com', '2-930909-006-23', med6Id, '2024-06-18');
+seedAssure('ASSAM ESSI', 'Camille',   '1990-04-12', '677000001', 'c.assam@gmail.com',   'SS-000001', med1Id, '2024-01-10');
+seedAssure('BAKOTCHA',   'Loïc',      '1985-08-25', '677000002', 'l.bakotcha@gmail.com','SS-000002', med1Id, '2024-02-15');
+seedAssure('DJOKAM',     'Franck',    '1995-12-03', '677000003', 'f.djokam@gmail.com',  'SS-000003', med2Id, '2024-03-20');
+seedAssure('MEGOUEO',    'Davy',      '1988-06-17', '677000004', 'd.megoueo@gmail.com', 'SS-000004', med2Id, '2024-04-05');
+seedAssure('NSOBÉ',      'Chamberlain','1992-02-28','677000005', 'c.nsobe@gmail.com',   'SS-000005', med6Id, '2024-05-12');
+seedAssure('TACHAGO',    'Eugénie',   '1993-09-09', '677000006', 'e.tachago@gmail.com', 'SS-000006', med6Id, '2024-06-18');
 
 // ── Feuilles de maladie ────────────────────────────────────────
 const insertFeuille = db.prepare(`
@@ -74,10 +74,10 @@ const insertFeuille = db.prepare(`
   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 `);
 
-const a1 = db.prepare("SELECT id FROM assures WHERE numero_ss='1-900412-001-23'").get()?.id;
-const a2 = db.prepare("SELECT id FROM assures WHERE numero_ss='1-850825-002-21'").get()?.id;
-const a3 = db.prepare("SELECT id FROM assures WHERE numero_ss='1-951203-003-23'").get()?.id;
-const a4 = db.prepare("SELECT id FROM assures WHERE numero_ss='1-880617-004-23'").get()?.id;
+const a1 = db.prepare("SELECT id FROM assures WHERE numero_ss='SS-000001'").get()?.id;
+const a2 = db.prepare("SELECT id FROM assures WHERE numero_ss='SS-000002'").get()?.id;
+const a3 = db.prepare("SELECT id FROM assures WHERE numero_ss='SS-000003'").get()?.id;
+const a4 = db.prepare("SELECT id FROM assures WHERE numero_ss='SS-000004'").get()?.id;
 
 insertFeuille.run('FM-2024-001', a1, med1Id, '2024-01-15', 'Grippe saisonnière',
   'Consultation générale, prise de sang', 'Remboursée', 15000, 10500, 0.7, 'virement',
