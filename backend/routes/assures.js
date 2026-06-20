@@ -111,12 +111,29 @@ router.patch('/:id/medecin-traitant', authenticate, requireRole('assureur'), (re
   res.json({ message: 'Médecin traitant enregistré avec succès.' });
 });
 
-// DELETE /api/assures/:id
+// DELETE /api/assures/:id — Suppression complète avec toutes les données liées
 router.delete('/:id', authenticate, requireRole('assureur'), (req, res) => {
   const db = getDb();
-  const info = db.prepare('UPDATE assures SET actif=0 WHERE id=?').run(req.params.id);
-  if (info.changes === 0) return res.status(404).json({ error: 'Assuré introuvable.' });
-  res.json({ message: 'Assuré désactivé.' });
+  const assure = db.prepare('SELECT personne_id FROM assures WHERE id=?').get(req.params.id);
+  if (!assure) return res.status(404).json({ error: 'Assuré introuvable.' });
+
+  const del = db.transaction(() => {
+    // Supprimer remboursements liés aux feuilles de l'assuré
+    db.prepare(`DELETE FROM remboursements WHERE feuille_id IN (SELECT id FROM feuilles_maladie WHERE assure_id=?)`).run(req.params.id);
+    // Supprimer lignes de prescription + consultations liées
+    db.prepare(`DELETE FROM prescription_medicaments WHERE prescription_id IN (SELECT id FROM prescriptions WHERE assure_id=?)`).run(req.params.id);
+    db.prepare(`DELETE FROM prescription_consultation WHERE prescription_id IN (SELECT id FROM prescriptions WHERE assure_id=?)`).run(req.params.id);
+    // Supprimer prescriptions
+    db.prepare(`DELETE FROM prescriptions WHERE assure_id=?`).run(req.params.id);
+    // Supprimer feuilles de maladie
+    db.prepare(`DELETE FROM feuilles_maladie WHERE assure_id=?`).run(req.params.id);
+    // Supprimer l'assuré
+    db.prepare(`DELETE FROM assures WHERE id=?`).run(req.params.id);
+    // Supprimer la personne
+    db.prepare(`DELETE FROM personnes WHERE id=?`).run(assure.personne_id);
+  });
+  del();
+  res.json({ message: 'Assuré et toutes ses données supprimés.' });
 });
 
 module.exports = router;

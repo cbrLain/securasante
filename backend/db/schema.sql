@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS assures (
   id                  INTEGER PRIMARY KEY AUTOINCREMENT,
   personne_id         INTEGER REFERENCES personnes(id) ON DELETE CASCADE,
   numero_ss           TEXT UNIQUE NOT NULL,
-  medecin_traitant_id INTEGER REFERENCES medecins(id),
+  medecin_traitant_id INTEGER REFERENCES medecins(id) ON DELETE SET NULL,
   date_inscription    DATE DEFAULT CURRENT_DATE,
   actif               INTEGER DEFAULT 1
 );
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS assures (
 CREATE TABLE IF NOT EXISTS feuilles_maladie (
   id                   INTEGER PRIMARY KEY AUTOINCREMENT,
   reference            TEXT UNIQUE NOT NULL,
-  assure_id            INTEGER REFERENCES assures(id) NOT NULL,
+  assure_id            INTEGER REFERENCES assures(id) ON DELETE CASCADE NOT NULL,
   medecin_id           INTEGER REFERENCES medecins(id) NOT NULL,
   date_consultation    DATE NOT NULL,
   diagnostic           TEXT NOT NULL,
@@ -72,8 +72,8 @@ CREATE TABLE IF NOT EXISTS feuilles_maladie (
 -- ── Remboursements ──
 CREATE TABLE IF NOT EXISTS remboursements (
   id                  INTEGER PRIMARY KEY AUTOINCREMENT,
-  feuille_id          INTEGER REFERENCES feuilles_maladie(id) NOT NULL,
-  assure_id           INTEGER REFERENCES assures(id) NOT NULL,
+  feuille_id          INTEGER REFERENCES feuilles_maladie(id) ON DELETE CASCADE NOT NULL,
+  assure_id           INTEGER REFERENCES assures(id) ON DELETE CASCADE NOT NULL,
   assureur_id         INTEGER REFERENCES utilisateurs(id),
   montant             REAL NOT NULL,
   mode_paiement       TEXT CHECK(mode_paiement IN ('especes','virement')) NOT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS prescriptions (
   id           INTEGER PRIMARY KEY AUTOINCREMENT,
   type         TEXT CHECK(type IN ('medicaments','consultation_specialiste')) NOT NULL,
   medecin_id   INTEGER REFERENCES medecins(id) NOT NULL,
-  assure_id    INTEGER REFERENCES assures(id) NOT NULL,
+  assure_id    INTEGER REFERENCES assures(id) ON DELETE CASCADE NOT NULL,
   feuille_id   INTEGER REFERENCES feuilles_maladie(id),
   date_prescription DATE DEFAULT CURRENT_DATE,
   notes        TEXT,
