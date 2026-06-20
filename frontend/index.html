@@ -17,12 +17,11 @@
 <div id="screen-landing" class="screen">
   <div class="landing-nav">
     <div class="landing-logo"><i class="fas fa-shield-alt"></i> NKAPSANTÉ</div>
+    <div class="l-tabs">
+      <button class="ltab active" data-ltab="about" onclick="switchLandingTab('about')">À propos</button>
+      <button class="ltab" data-ltab="roles" onclick="switchLandingTab('roles')">Assurés & Médecins</button>
+    </div>
     <button class="btn btn-outline" style="border-color:#fff;color:#fff" onclick="showLogin()">Espace Connecté <i class="fas fa-arrow-right"></i></button>
-  </div>
-
-  <div class="l-tabs">
-    <button class="ltab active" data-ltab="about" onclick="switchLandingTab('about')">À propos</button>
-    <button class="ltab" data-ltab="roles" onclick="switchLandingTab('roles')">Assurés & Médecins</button>
   </div>
 
   <!-- Tab: À propos -->
