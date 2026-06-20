@@ -185,7 +185,8 @@ document.getElementById('btn-menu').onclick = () => {
 // ── Overlay mobile ────────────────────────────────────────────
 document.getElementById('screen-app').addEventListener('click', e => {
   const sidebar = document.getElementById('sidebar');
-  if (sidebar.classList.contains('mob-open') && !sidebar.contains(e.target)) {
+  const btn    = document.getElementById('btn-menu');
+  if (sidebar.classList.contains('mob-open') && !sidebar.contains(e.target) && !document.getElementById('btn-menu').contains(e.target)) {
     sidebar.classList.remove('mob-open');
   }
 });
