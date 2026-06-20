@@ -71,7 +71,7 @@ function showApp(user) {
   const initials = (user.prenom[0] + user.nom[0]).toUpperCase();
   document.getElementById('s-avatar').textContent  = initials;
   document.getElementById('s-uname').textContent   = `${user.prenom} ${user.nom}`;
-  document.getElementById('s-role').innerHTML      = user.role === 'assureur' ? '<i class="ph ph-user-circle-gear"></i> Assureur' : '<i class="ph ph-stethoscope"></i> Médecin';
+  document.getElementById('s-role').innerHTML      = user.role === 'assureur' ? '<i class="fas fa-user-cog"></i> Assureur' : '<i class="fas fa-stethoscope"></i> Médecin';
   document.getElementById('s-urole').textContent   = user.role === 'assureur' ? 'Agent de sécurité sociale' : 'Professionnel de santé';
 
   // Navigation selon rôle
